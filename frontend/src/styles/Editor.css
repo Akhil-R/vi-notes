@@ -1,0 +1,35 @@
+/* 1. The "Desk" - The background of the whole page */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f3f3f1; /* Light gray "desk" color */
+  color: #1c1b1a;
+}
+
+/* 2. The "Paper" Wrapper */
+.editor-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* This creates the visual area for typing */
+.editor-textarea {
+  width: 100%;
+  max-width: 720px;
+  min-height: 80vh;
+  padding: 60px; /* Internal padding like a real margin on paper */
+  font-size: 1.1rem;
+  line-height: 1.8;
+  font-family: 'Georgia', serif;
+  
+  background: #ffffff; /* White "paper" */
+  border: 1px solid #e2e2e2; /* Very faint border */
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+  
+  outline: none;
+  resize: none;
+}
