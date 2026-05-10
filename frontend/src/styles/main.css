@@ -1,0 +1,391 @@
+/* Main colors and reusable values for the whole app */
+:root {
+  --bg: #f7f4ee;
+  --surface: #fffdf8;
+  --surface-soft: #fbf8f1;
+  --text: #28231d;
+  --muted: #756d63;
+  --subtle: #a79d91;
+  --border: #e5ddd1;
+  --primary: #2f6f64;
+  --primary-hover: #275b52;
+  --danger: #a9443f;
+  --danger-bg: #fff1ef;
+  --focus: rgb(47 111 100 / 0.18);
+  --shadow: 0 22px 60px rgb(62 51 38 / 0.1);
+  --radius: 8px;
+}
+
+/* Basic reset so spacing is easier to control */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Common page styles */
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgb(255 255 255 / 0.85), transparent 34rem),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: var(--primary);
+}
+
+.app-loading {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+/* Common button styles */
+.btn {
+  width: 100%;
+  min-height: 46px;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fffdf8;
+  box-shadow: 0 10px 20px rgb(47 111 100 / 0.16);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* Login and register page styles */
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.auth-panel {
+  width: min(100%, 420px);
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.brand-logo,
+.navbar-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius);
+  display: inline-grid;
+  place-items: center;
+  background: var(--text);
+  color: var(--surface);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.brand-title {
+  font-size: 1.7rem;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.brand-tagline {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+}
+
+.auth-title {
+  font-size: 1.45rem;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.auth-subtitle {
+  margin-top: 0.4rem;
+  margin-bottom: 1.5rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.form-label {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.form-input {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fffefa;
+  color: var(--text);
+  padding: 0.75rem 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--focus);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--subtle);
+}
+
+.error-text {
+  color: var(--danger);
+  font-size: 0.86rem;
+}
+
+.form-status-error {
+  border: 1px solid rgb(169 68 63 / 0.22);
+  border-radius: var(--radius);
+  background: var(--danger-bg);
+  color: var(--danger);
+  padding: 0.75rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.auth-link {
+  margin-top: 1.35rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.auth-link a {
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* Small loading spinner used inside submit buttons */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgb(255 255 255 / 0.38);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Top navbar styles */
+.navbar {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 5vw, 3rem);
+  background: rgb(255 253 248 / 0.82);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar-logo {
+  width: 34px;
+  height: 34px;
+  font-size: 0.86rem;
+}
+
+.navbar-brand h1 {
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.welcome-text {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.logout-btn {
+  min-height: 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: var(--surface-soft);
+  border-color: var(--subtle);
+}
+
+/* Editor page styles */
+.editor-page {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-shell {
+  width: min(100%, 820px);
+  flex: 1;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 5vw, 3rem) 1rem 4rem;
+}
+
+.editor-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.writing-surface {
+  min-height: calc(100vh - 190px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 32px rgb(62 51 38 / 0.08);
+  padding: clamp(1rem, 4vw, 2rem);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.writing-surface:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--focus), 0 12px 32px rgb(62 51 38 / 0.08);
+}
+
+.editor-textarea {
+  width: 100%;
+  min-height: calc(100vh - 285px);
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.12rem;
+  line-height: 1.85;
+}
+
+.editor-textarea::placeholder {
+  color: var(--subtle);
+}
+
+/* Mobile styles for smaller screens */
+@media (max-width: 640px) {
+  .auth-shell {
+    place-items: start center;
+    padding-top: 1.25rem;
+  }
+
+  .brand-lockup {
+    align-items: flex-start;
+  }
+
+  .auth-card {
+    padding: 1.4rem;
+  }
+
+  .navbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .navbar-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .welcome-text {
+    max-width: 65%;
+  }
+
+  .editor-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .editor-textarea {
+    font-size: 1.04rem;
+    min-height: calc(100vh - 315px);
+  }
+}
