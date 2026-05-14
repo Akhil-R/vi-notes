@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 import type { User } from "./AuthContext";
-import { registerAPI, loginAPI } from "../api/authApi";
+import { registerAPI, loginAPI, meAPI } from "../api/authApi";
 
 // This component keeps all login information in one place.
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -19,9 +19,40 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // This helps us show loading text while login or register is running.
   const [loading, setLoading] = useState(false);
 
+  // This helps us show loading while validating the stored token on app mount.
+  const [validating, setValidating] = useState(true);
+
+  // This validates the stored token when the app loads.
+  useEffect(() => {
+    const validateToken = async () => {
+      const storedToken = localStorage.getItem("vi-token");
+
+      if (!storedToken) {
+        setValidating(false);
+        return;
+      }
+
+      try {
+        const { data } = await meAPI(storedToken);
+        setUser(data.user);
+        setToken(storedToken);
+      } catch {
+        // Token is invalid or expired, clear stored data
+        localStorage.removeItem("vi-token");
+        localStorage.removeItem("vi-user");
+        setUser(null);
+        setToken(null);
+      } finally {
+        setValidating(false);
+      }
+    };
+
+    validateToken();
+  }, []);
+
   // This creates a new account by calling the backend.
   const register = async (name: string, email: string, password: string) => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const { data } = await registerAPI(name, email, password);
       setUser(data.user);
@@ -61,7 +92,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // All pages inside this provider can use user, token, login, register, and logout.
   return (
-    <AuthContext.Provider value={{ user, token, loading, register, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        loading: loading || validating,
+        register,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

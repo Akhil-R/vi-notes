@@ -19,7 +19,11 @@ const EditorPage = () => {
   useEffect(() => {
     const userId = user?.id;
     if (userId) {
-      localStorage.setItem(`vi-content-${userId}`, content);
+      const timeoutId = setTimeout(() => {
+        localStorage.setItem(`vi-content-${userId}`, content);
+      }, 1000); // Wait 1 second after user stops typing
+
+      return () => clearTimeout(timeoutId); // Cleanup on re-render
     }
   }, [content, user?.id]);
 

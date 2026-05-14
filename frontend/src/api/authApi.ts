@@ -12,7 +12,11 @@ export const registerAPI = (name: string, email: string, password: string) =>
 export const loginAPI = (email: string, password: string) =>
   axios.post(`${API}/api/auth/login`, { email, password });
 
+// This gets the current user info using the stored token.
+export const meAPI = (token: string) =>
+  axios.get(`${API}/api/auth/me`, createAuthHeader(token));
+
 // This can be used later when an API route needs the user's token.
 export const createAuthHeader = (token: string) => ({
-  headers: { Authorization: `Bearer ${token}` }
+  headers: { Authorization: `Bearer ${token}` },
 });

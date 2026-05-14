@@ -3,20 +3,20 @@ import { useAuth } from "../auth/useAuth";
 
 // This component is used for pages that need login.
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { token, logout } = useAuth();
- 
-  // If there is no token, the user has not logged in.
-  if (!token) return <Navigate to="/login" />;
- 
-  // A normal JWT token has three parts separated by dots.
-  const parts = token.split('.');
-  if (parts.length !== 3) {
-    logout();
+  const { user, loading } = useAuth();
+
+  // Show loading while validating the token.
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // If there is no user (token validation failed), redirect to login.
+  if (!user) {
     return <Navigate to="/login" />;
   }
- 
-  // If the token exists, show the protected page.
+
+  // If the user exists, show the protected page.
   return <>{children}</>;
 };
- 
+
 export default ProtectedRoute;
